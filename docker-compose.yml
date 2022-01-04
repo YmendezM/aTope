@@ -1,0 +1,55 @@
+version: "3"
+services:
+  v3_mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=nombre
+      - MYSQL_ROOT_PASSWORD=claveroot
+      - MYSQL_USER=miusuario
+      - MYSQL_PASSWORD=mipassword
+    #volumes:
+      # Montamos un volumen para MySQL para no perder los datos de bd
+    #  - ./volumenes/mysql:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+  v3_php:
+    image: aspendigital/codeigniter:latest
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html/v3
+    links: 
+      - v3_mysql
+   
+  #v3_php:
+  #  image: php:7-apache
+  #  volumes:
+      # Montamos nuestra web desde fuera en el directorio web del contenedor
+      #- ./miweb/:/var/www/html
+  #    - .:/var/www/html/v3/
+  # expose:
+  #    - 80
+  #  ports:
+  #    - 80:80
+  #  links: 
+  #    - v3_mysql
+  
+  #v3_php:
+  #  image: docker.io/bitnami/codeigniter:4
+  #  ports:
+  #    - '8000:8000'
+  #  volumes:
+  #    - '.:/app'
+  #  depends_on:
+  #    - mariadb
+  #  links: 
+  #    - v3_mysql
+  
+  #mariadb:
+  #  image: docker.io/bitnami/mariadb:10.4
+  #  environment:
+  #    # ALLOW_EMPTY_PASSWORD is recommended only for development.
+  #    - ALLOW_EMPTY_PASSWORD=yes
+  
