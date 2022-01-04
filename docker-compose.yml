@@ -19,7 +19,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - .:/var/www/html/v3
+      - .:/var/www/html
     links: 
       - v3_mysql
    
